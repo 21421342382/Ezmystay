@@ -13,5 +13,9 @@ class assets_controller{
   static final like_icon = "assets/icon _Heart_ .png";
   static final bell_icon = "assets/icon _bell_.png";
   static final coin_icon = "assets/raward-point.png";
+  static final star_icon = "assets/star.png";
+  static final hotel_photo_1 = "assets/hotel.png";
+  static final hotel_photo_2 = "assets/hotel2.png";
+
 
 }
