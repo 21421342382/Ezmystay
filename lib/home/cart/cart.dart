@@ -133,7 +133,154 @@ class cart extends StatelessWidget {
                 ],
               ),
             ),
-          )
+          ),
+          SizedBox(height: 10,),
+          Align(
+              alignment: Alignment.centerLeft,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 18),
+                child: Text("Bill Details",style: GoogleFonts.poppins(color: Colors.grey,fontSize: 18),),
+              )),
+          Padding(
+            padding: const EdgeInsets.all(18.0),
+            child: Container(
+              height: 300,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.all(Radius.circular(20)),
+                boxShadow: [
+                  BoxShadow(
+                    blurRadius: 2,
+                    color: Colors.grey
+                  )
+                ]
+              ),
+              child: Column(
+                children: [
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.all(18.0),
+                      child: Row(
+                        children: [
+                          Text("Item Total",style: GoogleFonts.poppins(color: Colors.black87,fontSize: 16),),
+                          Expanded(child: Align(
+                            alignment: Alignment.centerRight,
+                            child: Text("₹0",style: GoogleFonts.poppins(color: Colors.black),),
+                          ))
+                        ],
+                      ),
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 18,top: 0),
+                      child: Text("Room no",style: GoogleFonts.poppins(color: Colors.grey),),
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 18,top: 18),
+                      child: Text("Free room service",style: GoogleFonts.poppins(color: Colors.grey),),
+                    ),
+                  ),
+                  SizedBox(height: 10,),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8,right: 8),
+                    child: Divider(color: Colors.grey,),
+                  ),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 18,),
+                      child: Text("Apply Coupon",style: GoogleFonts.poppins(color: Colors.black87,fontSize: 17),),
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 18,top: 18,right: 18,bottom: 8),
+                      child: Row(
+                        children: [
+                          Text("Lorem impusm is simply text printing",style: GoogleFonts.poppins(color: Colors.grey),),
+                          Expanded(child: Align(
+                            alignment: Alignment.centerRight,
+                            child: Icon(Icons.arrow_right_alt_outlined,color: Colors.blue,),
+                          ))
+                        ],
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 18,right: 18),
+                    child: Divider(color: Colors.grey,),
+                  ),
+                  SizedBox(height: 10,),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 18,),
+                      child: Row(
+                        children: [
+                          Text("To pay",style: GoogleFonts.poppins(color: Colors.black87),),
+                          Expanded(child: Align(
+                            alignment: Alignment.centerRight,
+                            child: Text("₹0.00",style: GoogleFonts.poppins(color: Colors.black),),
+                          )),
+                          SizedBox(width : 18)
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Expanded(child: Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              height: 150,
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8,right: 8),
+                    child: Divider(color: Colors.grey,),
+                  ),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 18),
+                      child: Text("Almost There",style: GoogleFonts.poppins(color: Colors.black87,fontSize: 18),),
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 18),
+                      child: Text("Quickly to place order",style: GoogleFonts.poppins(color: Colors.grey,),),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 18,right: 18,top: 8),
+                    child: Container(
+                      height: 60,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                        color: Colors.blue
+                      ),
+                      child: Center(
+                        child: Text("Order Now",style: GoogleFonts.poppins(color: Colors.white,fontSize: 18),),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ))
         ],
       ),
     );
