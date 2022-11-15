@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:interviewproject/app/sign%20up/continue%20with%20email.dart';
 import 'package:interviewproject/app/sign%20up/continue%20with%20phone.dart';
 import 'package:interviewproject/assets%20controller/assets_controller.dart';
 import 'package:interviewproject/elements/containerrounded.dart';
@@ -236,7 +237,7 @@ class _continue_with_phoneState extends State<continue_with_phone> {
                     padding: const EdgeInsets.only(left: 18,right: 18),
                     child: InkWell(
                       onTap: (){
-                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => continue_with_phone()));
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => continue_with_email()));
                       },
                       child: Container(
                         height: 60,

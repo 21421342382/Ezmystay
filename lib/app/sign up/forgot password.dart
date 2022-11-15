@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:interviewproject/assets%20controller/assets_controller.dart';
 
 class forgot_password extends StatefulWidget {
   forgot_password({Key? key, required this.email}) : super(key: key);
@@ -59,7 +60,18 @@ class _forgot_passwordState extends State<forgot_password> {
       body: Center(
         child: Column(
           children: [
-            SizedBox(height: 100,),
+            SafeArea(child: Align(
+              alignment: Alignment.centerLeft,
+              child: Padding(
+                padding: const EdgeInsets.all(18.0),
+                child: InkWell(
+                    onTap: (){
+                      Navigator.pop(context);
+                    },
+                    child: Image.asset(assets_controller.close_icon)),
+              ),
+            )),
+            SizedBox(height: 10,),
             Text("Forgot Password",style: GoogleFonts.poppins(fontSize: 24,color: Colors.grey),),
             SizedBox(height: 20,),
             Text("${widget.email}",style: GoogleFonts.poppins(color: Colors.grey,fontSize: 20),),

@@ -16,6 +16,6 @@ class assets_controller{
   static final star_icon = "assets/star.png";
   static final hotel_photo_1 = "assets/hotel.png";
   static final hotel_photo_2 = "assets/hotel2.png";
-
+  static final pakistan_flag = "assets/pakistan flag.jpg";
 
 }

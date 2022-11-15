@@ -96,7 +96,7 @@ class _otp_screenState extends State<otp_screen> {
             ),
           )),
           Center(child: Icon(Icons.mail,color: Colors.brown,size: 100,))
-          ,Text("Email Verification",style: GoogleFonts.poppins(fontSize: 24,color: Colors.black),),
+          ,Text("Phone Verification",style: GoogleFonts.poppins(fontSize: 24,color: Colors.black),),
           SizedBox(height: 10,),
           Text("Please Enter the OTP sent on your device",style: GoogleFonts.poppins(color: Colors.grey),),
           SizedBox(height: 40,),

@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:interviewproject/assets%20controller/assets_controller.dart';
 
+import '../home Section/main home.dart';
 import 'driving license.dart';
 
 class complete_profile extends StatefulWidget {
@@ -21,6 +22,10 @@ class _complete_profileState extends State<complete_profile> {
   bool other = false;
   bool show_animation = false;
   bool on_clicked = false;
+  bool india = false;
+  bool pakistan = false;
+  bool _show_india = true;
+  bool _show_pakistan = false;
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,7 +53,11 @@ class _complete_profileState extends State<complete_profile> {
                     alignment: Alignment.centerLeft,
                     child: Padding(
                       padding: const EdgeInsets.all(18.0),
-                      child: Text("Home >",style: GoogleFonts.poppins(color: Colors.blue),),
+                      child: InkWell(
+                          onTap: (){
+                            Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => home_section()), (route) => false);
+                          },
+                          child: Text("Home >",style: GoogleFonts.poppins(color: Colors.blue),)),
                     ),
                   ),
                   Center(
@@ -312,7 +321,7 @@ class _complete_profileState extends State<complete_profile> {
                       },
                       child: AnimatedContainer(
                         duration: Duration(milliseconds: 1000),
-                        height: show_animation ?300 :60,
+                        height: show_animation ?100 :60,
                         width: double.infinity,
                         decoration: BoxDecoration(
                           color: Color(0xFFEFEFF4),
@@ -323,22 +332,76 @@ class _complete_profileState extends State<complete_profile> {
                             ?Column(
                           children: [
                             SizedBox(height: 10,),
-                            Row(
-                              children: [
-                                SizedBox(width: 8,),
-                                Image.asset(assets_controller.india_flag),
-                                SizedBox(width: 10,),
-                                Text("India",style: GoogleFonts.poppins(color: Colors.black87),),
-                                Expanded(child: Align(
-                                  alignment: Alignment.centerRight,
-                                  child: Icon(Icons.keyboard_arrow_up_outlined,color: Colors.black,),
-                                )),
-                                SizedBox(width: 10,),
-                              ],
+                            InkWell(
+                              onTap: (){
+                                setState(() {
+                                  pakistan = false;
+                                  india = true;
+                                  _show_india = true;
+                                  _show_pakistan = false;
+                                  show_animation = false;
+                                });
+                              },
+                              child: Container(
+                                child: Row(
+                                  children: [
+                                    SizedBox(width: 8,),
+                                    Image.asset(assets_controller.india_flag),
+                                    SizedBox(width: 10,),
+                                    Text("India",style: GoogleFonts.poppins(color: Colors.black87),),
+                                    Expanded(child: Align(
+                                      alignment: Alignment.centerRight,
+                                      child: Icon(Icons.keyboard_arrow_up_outlined,color: Colors.black,),
+                                    )),
+                                  ],
+                                ),
+                              ),
                             ),
+                            SizedBox(height: 10,),
+                            InkWell(
+                              onTap: (){
+                                setState(() {
+                                  pakistan = true;
+                                  india = false;
+                                  _show_india = false;
+                                  _show_pakistan = true;
+                                  show_animation = false;
+                                });
+                              },
+                              child: Container(
+                                child: Row(
+                                  children: [
+                                    SizedBox(width: 8,),
+                                    Image.asset(assets_controller.pakistan_flag,height: 30,width: 45,fit: BoxFit.fill,),
+                                    SizedBox(width: 10,),
+                                    Text("Pakistan",style: GoogleFonts.poppins(color: Colors.black87),),
+                                    Expanded(child: Align(
+                                      alignment: Alignment.centerRight,
+                                      child: Icon(Icons.keyboard_arrow_up_outlined,color: Colors.black,),
+                                    )),
+                                  ],
+                                ),
+                              ),
+                            ),
+
                           ],
                         )
-                            :Center(
+                            : _show_pakistan
+                        ? Center(
+                          child: Row(
+                            children: [
+                              SizedBox(width: 8,),
+                              Image.asset(assets_controller.pakistan_flag,height: 30,width: 45,fit: BoxFit.fill,),
+                              SizedBox(width: 10,),
+                              Text("Pakistan",style: GoogleFonts.poppins(color: Colors.black87),),
+                              Expanded(child: Align(
+                                alignment: Alignment.centerRight,
+                                child: Icon(Icons.keyboard_arrow_up_outlined,color: Colors.black,),
+                              )),
+                            ],
+                          ),
+                        )
+                            : Center(
                           child: Row(
                             children: [
                               SizedBox(width: 8,),
@@ -352,7 +415,7 @@ class _complete_profileState extends State<complete_profile> {
                               SizedBox(width: 10,),
                             ],
                           ),
-                        ),
+                        )
                       ),
                     ),
                   ),
@@ -411,9 +474,13 @@ class _complete_profileState extends State<complete_profile> {
                           padding: const EdgeInsets.only(left: 18,right: 18),
                           child: Row(
                             children: [
-                              Image.asset(assets_controller.india_flag),
+                              _show_india
+                              ?Image.asset(assets_controller.india_flag)
+                              :Image.asset(assets_controller.pakistan_flag,height: 30,width: 45,fit: BoxFit.fill,),
                               SizedBox(width: 5,),
-                              Text("+91",style: GoogleFonts.poppins(color: Colors.grey,fontSize: 17),),
+                              _show_india
+                              ?Text("+91",style: GoogleFonts.poppins(color: Colors.grey,fontSize: 17),)
+                              :Text("+92",style: GoogleFonts.poppins(color: Colors.grey,fontSize: 17),),
                               SizedBox(width: 5,),
                               Icon(Icons.arrow_drop_down_outlined,color: Colors.grey,),
                               Padding(
