@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -37,9 +38,13 @@ final description ;
           Text("${title}",style: GoogleFonts.poppins(color: Colors.grey.shade700,fontSize: 16),),
             Padding(
               padding: const EdgeInsets.only(left: 8,top: 5,bottom: 8,right: 8),
-              child: Text("${description}",
+              child: AutoSizeText("${description}",
                 textAlign: TextAlign.center,
-                style: GoogleFonts.poppins(color: Colors.grey),),
+                style: GoogleFonts.poppins(color: Colors.grey),
+                minFontSize: 8,
+                maxLines: 4,
+                overflow: TextOverflow.ellipsis,
+              ),
             )
           ],
         ),

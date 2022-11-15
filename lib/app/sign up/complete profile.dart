@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:interviewproject/assets%20controller/assets_controller.dart';
-import 'package:interviewproject/home/sign%20up/driving%20license.dart';
+
+import 'driving license.dart';
 
 class complete_profile extends StatefulWidget {
   const complete_profile({Key? key}) : super(key: key);

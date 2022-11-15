@@ -2,7 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:interviewproject/assets%20controller/assets_controller.dart';
-import 'package:interviewproject/home/cart/cart.dart';
+
+import '../app/cart/cart.dart';
 
 class current_stay extends StatelessWidget {
   const current_stay({Key? key}) : super(key: key);

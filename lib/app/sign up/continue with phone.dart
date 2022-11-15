@@ -1,22 +1,62 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:interviewproject/assets%20controller/assets_controller.dart';
-import 'package:top_snackbar_flutter/custom_snack_bar.dart';
-import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 import '../../elements/containerrounded.dart';
+import '../../terms & condition/terms & condition.dart';
 import '../sign up/complete profile.dart';
+import 'forgot password.dart';
 
-class login_page extends StatefulWidget {
-  login_page({Key? key}) : super(key: key);
+class continue_with_phone extends StatefulWidget {
+  continue_with_phone({Key? key}) : super(key: key);
 
   @override
-  State<login_page> createState() => _login_pageState();
+  State<continue_with_phone> createState() => _continue_with_phoneState();
 }
 
-class _login_pageState extends State<login_page> {
+class _continue_with_phoneState extends State<continue_with_phone> {
   @override
+  late FToast fToast;
+
+  @override
+  void initState() {
+    super.initState();
+    fToast = FToast();
+    fToast.init(context);
+  }
+
+
+  _showToast(text,condition) {
+    Widget toast = Container(
+      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25.0),
+        color: Colors.grey.shade200,
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          condition
+              ?Icon(Icons.check,color: Colors.green,)
+              :Icon(Icons.error,color: Colors.red,),
+          SizedBox(
+            width: 12.0,
+          ),
+          Text("${text}",style: GoogleFonts.poppins(),),
+        ],
+      ),
+    );
+
+
+    fToast.showToast(
+      child: toast,
+      gravity: ToastGravity.BOTTOM,
+      toastDuration: Duration(seconds: 2),
+    );
+
+  }
 
   TextEditingController email = new TextEditingController();
   TextEditingController password = new TextEditingController();
@@ -53,15 +93,15 @@ class _login_pageState extends State<login_page> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(top: 18,left: 13,),
-                      child: containerounded(height_: 170,width_: 140,assets: assets_controller.wallet_icon,title: "Earn ₹ 200",description: "Create your account and get it in Your Wallet",),
+                      child: containerounded(height_: 170,width_: MediaQuery.of(context).size.width * 0.30,assets: assets_controller.wallet_icon,title: "Earn ₹ 200",description: "Create your account and get it in Your Wallet",),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 18,left: 8,),
-                      child: containerounded(height_: 170,width_: 140,assets: assets_controller.tag_icon,title: "Upto 20% Off",description: "Use coupon Code CTFIRST on first Flights & Hotels Booking",),
+                      child: containerounded(height_: 170,width_: MediaQuery.of(context).size.width * 0.30,assets: assets_controller.tag_icon,title: "Upto 20% Off",description: "Use coupon Code CTFIRST on first Flights & Hotels Booking",),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 18,left: 8,right: 8),
-                      child: containerounded(height_: 170,width_: 140,assets: assets_controller.gift_icon,title: "Use Rewards",description: "Redeem Ezmystau supercoins on every flight",),
+                      child: containerounded(height_: 170,width_: MediaQuery.of(context).size.width * 0.30,assets: assets_controller.gift_icon,title: "Use Rewards",description: "Redeem Ezmystau supercoins on every flight",),
                     )
                   ],
                 ),
@@ -165,7 +205,15 @@ class _login_pageState extends State<login_page> {
                         ),
                         Expanded(child: Align(
                             alignment: Alignment.centerRight,
-                            child: Text("Forgot Password ?",style: GoogleFonts.poppins(color: Colors.blue),)))
+                            child: InkWell(
+                                onTap: (){
+                                  if(email.text == ""){
+                                    _showToast("Please Enter Email",false);
+                                  }else{
+                                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => forgot_password(email: email.text)));
+                                  }
+                                },
+                                child: Text("Forgot Password ?",style: GoogleFonts.poppins(color: Colors.blue),))))
                         ,SizedBox(width: 18,),
                       ],
                     ),
@@ -174,22 +222,10 @@ class _login_pageState extends State<login_page> {
                       child: InkWell(
                         onTap: (){
                           if(email.text == ""){
-                            showTopSnackBar(
-                              context,
-                              CustomSnackBar.error(
-                                message:
-                                "Something went wrong. Please check your credentials and try again",
-                              ),
-                            );
+                            _showToast("Please Enter Email",false);
                           }else{
                             if(password.text == ""){
-                              showTopSnackBar(
-                                context,
-                                CustomSnackBar.error(
-                                  message:
-                                  "Something went wrong. Please check your credentials and try again",
-                                ),
-                              );
+                              _showToast("Please Enter Password",false);
                             }else{
                               Navigator.of(context).push(MaterialPageRoute(builder: (context) => complete_profile()));
                             }
@@ -273,21 +309,26 @@ class _login_pageState extends State<login_page> {
                       child: Divider(color: Colors.grey,),
                     ),
                     SizedBox(height: 10,),
-                    RichText(
-                      textAlign: TextAlign.center,
-                      text: TextSpan(
-                        text: 'By Continuing, you agree ezmystay ',
+                    InkWell(
+                      onTap: (){
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => terms_condition()));
+                      },
+                      child: RichText(
+                        textAlign: TextAlign.center,
+                        text: TextSpan(
+                          text: 'By Continuing, you agree ezmystay ',
 
-                        style: GoogleFonts.poppins(color: Colors.grey),
-                        children: const <TextSpan>[
-                          TextSpan(
-                              text: 'privacy policy', style: TextStyle(color: Colors.blue)),
-                          TextSpan(
-                              text: ' & ', style: TextStyle(color: Colors.grey)),
-                          TextSpan(
-                              text: 'terms of use', style: TextStyle(color: Colors.blue)),
+                          style: GoogleFonts.poppins(color: Colors.grey),
+                          children: const <TextSpan>[
+                            TextSpan(
+                                text: 'privacy policy', style: TextStyle(color: Colors.blue)),
+                            TextSpan(
+                                text: ' & ', style: TextStyle(color: Colors.grey)),
+                            TextSpan(
+                                text: 'terms of use', style: TextStyle(color: Colors.blue)),
 
-                        ],
+                          ],
+                        ),
                       ),
                     )
                   ],

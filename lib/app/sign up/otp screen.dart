@@ -2,10 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:interviewproject/assets%20controller/assets_controller.dart';
-import 'package:top_snackbar_flutter/custom_snack_bar.dart';
-import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 import 'complete profile.dart';
 
@@ -19,12 +18,13 @@ class otp_screen extends StatefulWidget {
 class _otp_screenState extends State<otp_screen> {
 
   @override
+  late FToast fToast;
 
-  var text = 59;
-  bool enable_button = false;
-
+  @override
   void initState() {
-
+    super.initState();
+    fToast = FToast();
+    fToast.init(context);
     Timer mytimer = Timer.periodic(Duration(seconds: 1), (timer) {
       if(text == 0){
         setState(() {
@@ -40,6 +40,39 @@ class _otp_screenState extends State<otp_screen> {
     });
     super.initState();
   }
+
+  _showToast(text,condition) {
+    Widget toast = Container(
+      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25.0),
+        color: Colors.greenAccent,
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          condition
+              ?Icon(Icons.check,color: Colors.black87,)
+              :Icon(Icons.error,color: Colors.red,),
+          SizedBox(
+            width: 12.0,
+          ),
+          Text("${text}",style: GoogleFonts.poppins(),),
+        ],
+      ),
+    );
+
+
+    fToast.showToast(
+      child: toast,
+      gravity: ToastGravity.BOTTOM,
+      toastDuration: Duration(seconds: 2),
+    );
+
+  }
+
+  var text = 59;
+  bool enable_button = false;
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,13 +114,7 @@ class _otp_screenState extends State<otp_screen> {
             },
             //runs when every textfield is filled
             onSubmit: (String verificationCode){
-              showTopSnackBar(
-                  context,
-                  CustomSnackBar.success(
-                    message:
-                    "OTP Entered Sucessfully",
-                  )
-              );
+              _showToast("Verification Successfull",true);
               Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => complete_profile()));
             }, // end onSubmit
           ),

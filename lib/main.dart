@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:interviewproject/app/sign%20up/continue%20with%20phone.dart';
 
-import 'home/sign up/sign up page.dart';
 
 void main() {
   runApp(const main_page());
@@ -15,7 +15,7 @@ class main_page extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: Colors.white,
-        body: sign_up_page(),
+        body: continue_with_phone(),
       ),
     );
   }

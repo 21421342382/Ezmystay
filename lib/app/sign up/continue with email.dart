@@ -1,22 +1,66 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:interviewproject/app/sign%20up/continue%20with%20phone.dart';
 import 'package:interviewproject/assets%20controller/assets_controller.dart';
 import 'package:interviewproject/elements/containerrounded.dart';
-import 'package:interviewproject/home/sign%20up/otp%20screen.dart';
-import 'package:top_snackbar_flutter/custom_snack_bar.dart';
-import 'package:top_snackbar_flutter/top_snack_bar.dart';
+import 'package:interviewproject/terms%20&%20condition/terms%20&%20condition.dart';
 
-import '../login/login page.dart';
+import 'otp screen.dart';
 
 
-class sign_up_page extends StatelessWidget {
-  sign_up_page({Key? key}) : super(key: key);
+class continue_with_email extends StatefulWidget {
+  continue_with_email({Key? key}) : super(key: key);
 
   @override
+  State<continue_with_email> createState() => _continue_with_emailState();
+}
+
+class _continue_with_emailState extends State<continue_with_email> {
+  @override
+  late FToast fToast;
+
+  @override
+  void initState() {
+    super.initState();
+    fToast = FToast();
+    fToast.init(context);
+  }
+
+  _showToast(text,condition) {
+    Widget toast = Container(
+      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25.0),
+        color: Colors.grey.shade200,
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          condition
+              ?Icon(Icons.check,color: Colors.green,)
+              :Icon(Icons.error,color: Colors.red,),
+          SizedBox(
+            width: 12.0,
+          ),
+          Text("${text}",style: GoogleFonts.poppins(),),
+        ],
+      ),
+    );
+
+
+    fToast.showToast(
+      child: toast,
+      gravity: ToastGravity.BOTTOM,
+      toastDuration: Duration(seconds: 2),
+    );
+
+  }
 
   TextEditingController ph_no = new TextEditingController();
+
   TextEditingController country_code = new TextEditingController();
 
   Widget build(BuildContext context) {
@@ -44,15 +88,15 @@ class sign_up_page extends StatelessWidget {
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(top: 18,left: 13,),
-                    child: containerounded(height_: 170,width_: 140,assets: assets_controller.wallet_icon,title: "Earn ₹ 200",description: "Create your account and get it in Your Wallet",),
+                    child: containerounded(height_: 170,width_: MediaQuery.of(context).size.width * 0.30,assets: assets_controller.wallet_icon,title: "Earn ₹ 200",description: "Create your account and get it in Your Wallet",),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 18,left: 8,),
-                    child: containerounded(height_: 170,width_: 140,assets: assets_controller.tag_icon,title: "Upto 20% Off",description: "Use coupon Code CTFIRST on first Flights & Hotels Booking",),
+                    child: containerounded(height_: 170,width_: MediaQuery.of(context).size.width * 0.30,assets: assets_controller.tag_icon,title: "Upto 20% Off",description: "Use coupon Code CTFIRST on first Flights & Hotels Booking",),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 18,left: 8,right: 8),
-                    child: containerounded(height_: 170,width_: 140,assets: assets_controller.gift_icon,title: "Use Rewards",description: "Redeem Ezmystau supercoins on every flight",),
+                    child: containerounded(height_: 170,width_: MediaQuery.of(context).size.width * 0.30,assets: assets_controller.gift_icon,title: "Use Rewards",description: "Redeem Ezmystau supercoins on every flight",),
                   )
                 ],
               ),
@@ -140,22 +184,10 @@ class sign_up_page extends StatelessWidget {
                     child: InkWell(
                       onTap: (){
                         if(ph_no.text == ""){
-                          showTopSnackBar(
-                            context,
-                            CustomSnackBar.error(
-                              message:
-                              "Something went wrong. Please Enter Phone Number",
-                            ),
-                          );
+                          _showToast("Please Enter phone number",false);
                         }else{
                           if(country_code.text == ""){
-                            showTopSnackBar(
-                                context,
-                                CustomSnackBar.error(
-                                message:
-                                "Something went wrong. Please Enter Phone Code",
-                            )
-                            );
+                            _showToast("Please Enter country code",false);
                           }else{
                             print(country_code.text + ph_no.text);
                             Navigator.of(context).push(MaterialPageRoute(builder: (context) => otp_screen()));
@@ -204,7 +236,7 @@ class sign_up_page extends StatelessWidget {
                     padding: const EdgeInsets.only(left: 18,right: 18),
                     child: InkWell(
                       onTap: (){
-                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => login_page()));
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => continue_with_phone()));
                       },
                       child: Container(
                         height: 60,
@@ -235,21 +267,26 @@ class sign_up_page extends StatelessWidget {
                     child: Divider(color: Colors.grey,),
                   ),
                   SizedBox(height: 10,),
-                  RichText(
-                    textAlign: TextAlign.center,
-                    text: TextSpan(
-                      text: 'By Continuing, you agree ezmystay ',
+                  InkWell(
+                    onTap: (){
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => terms_condition()));
+                    },
+                    child: RichText(
+                      textAlign: TextAlign.center,
+                      text: TextSpan(
+                        text: 'By Continuing, you agree ezmystay ',
 
-                      style: GoogleFonts.poppins(color: Colors.grey),
-                      children: const <TextSpan>[
-                        TextSpan(
-                            text: 'privacy policy', style: TextStyle(color: Colors.blue)),
-                        TextSpan(
-                            text: ' & ', style: TextStyle(color: Colors.grey)),
-                        TextSpan(
-                            text: 'terms of use', style: TextStyle(color: Colors.blue)),
+                        style: GoogleFonts.poppins(color: Colors.grey),
+                        children: const <TextSpan>[
+                          TextSpan(
+                              text: 'privacy policy', style: TextStyle(color: Colors.blue)),
+                          TextSpan(
+                              text: ' & ', style: TextStyle(color: Colors.grey)),
+                          TextSpan(
+                              text: 'terms of use', style: TextStyle(color: Colors.blue)),
 
-                      ],
+                        ],
+                      ),
                     ),
                   )
                 ],

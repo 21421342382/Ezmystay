@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:interviewproject/assets%20controller/assets_controller.dart';
 import 'package:interviewproject/elements/containerrounded.dart';
-import 'package:interviewproject/home/home%20Section/main%20home.dart';
+
+import '../home Section/main home.dart';
 
 class driving_license extends StatefulWidget {
   const driving_license({Key? key}) : super(key: key);
