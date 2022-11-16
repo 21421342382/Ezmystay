@@ -38,6 +38,7 @@ dependencies:
   flutter_otp_text_field: ^1.1.1
   fluttertoast: ^8.1.1
   auto_size_text: ^3.0.0
+  intl_phone_number_input: ^0.7.1
 
 dev_dependencies:
   flutter_test:

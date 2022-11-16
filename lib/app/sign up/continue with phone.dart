@@ -8,7 +8,9 @@ import 'package:interviewproject/app/sign%20up/continue%20with%20phone.dart';
 import 'package:interviewproject/assets%20controller/assets_controller.dart';
 import 'package:interviewproject/elements/containerrounded.dart';
 import 'package:interviewproject/terms%20&%20condition/terms%20&%20condition.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
+import '../home Section/main home.dart';
 import 'otp screen.dart';
 
 
@@ -29,6 +31,20 @@ class _continue_with_phoneState extends State<continue_with_phone> {
     fToast = FToast();
     fToast.init(context);
   }
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  final TextEditingController controller = TextEditingController();
+  String initialCountry = 'NG';
+  PhoneNumber number = PhoneNumber(isoCode: 'NG');
+  void getPhoneNumber(String phoneNumber) async {
+    PhoneNumber number =
+    await PhoneNumber.getRegionInfoFromPhoneNumber(phoneNumber, 'US');
+
+    setState(() {
+      this.number = number;
+    });
+  }
+
 
   _showToast(text,condition) {
     Widget toast = Container(
@@ -72,7 +88,11 @@ class _continue_with_phoneState extends State<continue_with_phone> {
             alignment: Alignment.topLeft,
             child: Padding(
               padding: EdgeInsets.all(18.0),
-              child: Image.asset(assets_controller.close_icon),
+              child: InkWell(
+                  onTap: (){
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => home_section()));
+                  },
+                  child: Image.asset(assets_controller.close_icon)),
             ),
           )),
           Padding(
@@ -123,63 +143,62 @@ class _continue_with_phoneState extends State<continue_with_phone> {
                   Padding(
                     padding: const EdgeInsets.only(left: 18,right: 18,top: 30),
                     child: Container(
-                      height: 60,
+                      height: 70,
                       width: double.infinity,
                       decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
                         color: Color(0xFFEFEFF4),
-                        borderRadius: BorderRadius.all(Radius.circular(10))
                       ),
-                      child: Center(
-                        child: Row(
-                          children: [
-                            SizedBox(width: 30,),
-                            Container(
-                              width: 30,
-                              child: TextFormField(
-                                controller: country_code,
-                                inputFormatters: [
-                                  LengthLimitingTextInputFormatter(4),
-                                  FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-                                  FilteringTextInputFormatter.digitsOnly
-                                ],
-                                keyboardType: TextInputType.number,
-                                style: GoogleFonts.poppins(color: Colors.black),
-                                decoration: InputDecoration.collapsed(
-                                    hintText: "91",
-                                    hintStyle: GoogleFonts.poppins(color: Colors.grey)
-                                ),
-                              ),
+                      child: Form(
+                        key: formKey,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: InternationalPhoneNumberInput(
+                            onInputChanged: (PhoneNumber number) {
+                              print(number.phoneNumber);
+                            },
+                            onInputValidated: (bool value) {
+                              print(value);
+                            },
+                            selectorConfig: SelectorConfig(
+                              selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
                             ),
-                            SizedBox(width: 10,),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 8,bottom: 8),
-                              child: Container(
-                                height: double.infinity,
-                                width: 1,
-                                color: Colors.black,
-                              ),
-                            ),
-                            SizedBox(width: 20,),
-                            Expanded(
-                              child: TextFormField(
-                                controller: ph_no,
-                                inputFormatters: [
-                                  FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-                                  FilteringTextInputFormatter.digitsOnly
-                                ],
-                                keyboardType: TextInputType.number,
-                                style: GoogleFonts.poppins(color: Colors.black),
-                                decoration: InputDecoration.collapsed(
-                                  hintText: "Enter Mobile Number",
-                                  hintStyle: GoogleFonts.poppins(color: Colors.grey)
-                                ),
-                              ),
-                            )
-                          ],
+                            ignoreBlank: false,
+                            autoValidateMode: AutovalidateMode.disabled,
+                            selectorTextStyle: TextStyle(color: Colors.black),
+                            initialValue: number,
+                            textFieldController: ph_no,
+                            formatInput: false,
+                            keyboardType:
+                            TextInputType.numberWithOptions(signed: true, decimal: true),
+                            inputBorder: OutlineInputBorder(),
+                            textStyle: GoogleFonts.poppins(color: Colors.black),
+                            onSaved: (PhoneNumber number) {
+                              print('On Saved: $number');
+                            },
+                          ),
                         ),
                       ),
                     ),
-                  ),
+                    ),
+                    // ElevatedButton(
+                    //   onPressed: () {
+                    //     formKey.currentState?.validate();
+                    //   },
+                    //   child: Text('Validate'),
+                    // ),
+                    // ElevatedButton(
+                    //   onPressed: () {
+                    //     getPhoneNumber('+15417543010');
+                    //   },
+                    //   child: Text('Update'),
+                    // ),
+                    // ElevatedButton(
+                    //   onPressed: () {
+                    //     formKey.currentState?.save();
+                    //   },
+                    //   child: Text('Save'),
+                    // ),
                   Padding(
                     padding: const EdgeInsets.only(left: 18,right: 18,top: 30),
                     child: InkWell(
@@ -187,13 +206,9 @@ class _continue_with_phoneState extends State<continue_with_phone> {
                         if(ph_no.text == ""){
                           _showToast("Please Enter phone number",false);
                         }else{
-                          if(country_code.text == ""){
-                            _showToast("Please Enter country code",false);
-                          }else{
                             print(country_code.text + ph_no.text);
                             Navigator.of(context).push(MaterialPageRoute(builder: (context) => otp_screen()));
                           }
-                        }
                       },
                       child: Container(
                         height: 60,
@@ -298,4 +313,10 @@ class _continue_with_phoneState extends State<continue_with_phone> {
       ),
     );
   }
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
 }

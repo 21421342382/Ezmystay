@@ -6,6 +6,7 @@ import 'package:interviewproject/assets%20controller/assets_controller.dart';
 
 import '../../elements/containerrounded.dart';
 import '../../terms & condition/terms & condition.dart';
+import '../home Section/main home.dart';
 import '../sign up/complete profile.dart';
 import 'forgot password.dart';
 
@@ -74,7 +75,7 @@ class _continue_with_emailState extends State<continue_with_email> {
                 padding: EdgeInsets.all(18.0),
                 child: InkWell(
                     onTap: (){
-                      Navigator.pop(context);
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => home_section()));
                     },
                     child: Image.asset(assets_controller.close_icon)),
               ),
@@ -207,11 +208,7 @@ class _continue_with_emailState extends State<continue_with_email> {
                             alignment: Alignment.centerRight,
                             child: InkWell(
                                 onTap: (){
-                                  if(email.text == ""){
-                                    _showToast("Please Enter Email",false);
-                                  }else{
-                                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => forgot_password(email: email.text)));
-                                  }
+                                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => forgot_password_page_1()));
                                 },
                                 child: Text("Forgot Password ?",style: GoogleFonts.poppins(color: Colors.blue),))))
                         ,SizedBox(width: 18,),

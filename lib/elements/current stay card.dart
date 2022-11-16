@@ -12,7 +12,7 @@ class current_stay extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: (){
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) => cart()));
+        // Navigator.of(context).push(MaterialPageRoute(builder: (context) => cart()));
       },
       child: Container(
         height: 230,

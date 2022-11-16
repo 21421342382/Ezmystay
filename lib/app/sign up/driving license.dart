@@ -35,7 +35,7 @@ class _driving_licenseState extends State<driving_license> {
                 children: [
                   InkWell(
                       onTap: (){
-                        Navigator.pop(context);
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => home_section()));
                       },
                       child: Image.asset(assets_controller.arrow_back)),
                   Expanded(child: Align(
